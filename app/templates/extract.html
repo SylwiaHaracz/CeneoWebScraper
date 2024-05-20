@@ -2,6 +2,14 @@
 {% block content %}
     <h2>Ekstrakcja opinii</h2>
     <form action="{{url_for('extract')}}" method="post">
+        {% if error is defined %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> <i class="bi bi-exclamation-diamond-fill"></i> Uwaga!</strong> {{error}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
         <div class="row g-3 align-items-center">
             <div class="col-auto">
                 <label for="product_id" class="col-form-label">Kod produktu</label>
