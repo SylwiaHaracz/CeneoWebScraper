@@ -69,12 +69,21 @@ def extract():
 
 @app.route('/products')
 def products():
-    products_list = [filename.split(".")[0] for filename in os.listdir("app/opinions")]
-    products = []
-    for product_id in products_list:
-        with open(f"app/products/{product_id}.json","r", encoding="UTF-8") as jf:
-            products.append(json.load(jf))
-    return render_template("products.html", products=products)
+    #products_list = [filename.split(".")[0] for filename in os.listdir("app/opinions")]
+    #products = []
+    #for product_id in products_list:
+        #with open(f"app/products/{product_id}.json","r", encoding="UTF-8") as jf:
+            #products.append(json.load(jf))
+    #return render_template("products.html", products=products)
+
+    data = []
+    for filename in os.listdir('app/products'):
+        if filename.endswith('.json'):
+            file_path = os.path.join('app/products', filename)
+            with open(file_path, 'r') as f:
+                file_data = json.load(f)
+                data.append(file_data)
+    return render_template('products.html', data=data)
 
 @app.route('/about')
 def about():
@@ -82,7 +91,11 @@ def about():
 
 @app.route('/product/<product_id>')
 def product(product_id):
-    return render_template("product.html", product_id=product_id)
+    file_path = os.path.join('app/opinions/', f'{product_id}.json')
+    with open(file_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return render_template("product.html", data=data, product_id=product_id)
+    
 
 @app.route('/product/download_json/<product_id>')
 def download_json(product_id):
