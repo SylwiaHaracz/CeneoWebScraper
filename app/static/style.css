@@ -13,7 +13,8 @@ body{
     border: solid 2px;
     border-color: #5F3A90;
     border-radius: 20px;
-    padding-top: 5px;
+    padding-top: 2px;
+    margin: 5px;
 }
 
 .navbar a{
@@ -31,7 +32,6 @@ body{
     color: #B897E4;
 }
 
-
 h1{
     color: #7646AB;
     font-size: 50px;
@@ -45,4 +45,77 @@ footer{
     text-align: center;
     margin-top: 30px;
 
+}
+
+h3, h1{
+    margin: 20px;
+}
+
+.opis a{
+    text-decoration: none;
+}
+
+.opis{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+#sortAsc, #sortDesc, .extration_button{
+    background-color: #B897E4;
+    border-color: #5F3A90;
+    color: #5F3A90;
+    border: solid 2px;
+    border-radius: 20px;
+}
+
+#sortAsc:hover, #sortDesc:hover, .extration_button:hover{
+    background-color: #5F3A90;
+    color:#B897E4
+}
+
+.extraction_form{
+    margin: 30px;
+}
+
+.form-control{
+    text-align: center;
+}
+
+.about p{
+    margin: 30px;
+}
+
+.hobbies {
+    display: block;
+    float: right;
+    width: 98%;
+    margin: 2px;
+    padding: 5px;
+}
+
+.dance {
+    position: relative;
+    padding-left: 2%;
+    float: left;
+    width: 49%;
+    text-align: center;
+}
+
+.photo1 img{
+    float:left;
+}
+
+.photo2 img{
+    float:right;
+}
+
+.F1 {
+    position: relative;
+    float: right;
+    width: 50%;
+    text-align: center;
+}
+
+.about img {
+    height: 45vh;
 }

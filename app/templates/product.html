@@ -1,52 +1,133 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>To jest strona produktu {{product_id}}</p>
-    <div class="container">
-        <table class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th>Opinion ID</th>
-                    <th>Author</th>
-                    <th>Recommendation</th>
-                    <th>Number of Stars</th>
-                    <th>Content</th>
-                    <th>Pros</th>
-                    <th>Cons</th>
-                    <th>Helpful for</th>
-                    <th>Unhelpful for</th>
-                    <th>Publish date</th>
-                    <th>Purchase date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for product in data %}
-                    <tr>
-                        <td>{{ product.opinion_id }}</td>
-                        <td>{{ product.author }}</td>
-                        <td>{{ product.recommendation }}</td>
-                        <td>{{ product.stars }}</td>
-                        <td>{{ product.content }}</td>
-                        <td>
-                            <ul>
-                                {% for pro in product['pros'] %}
-                                <li>{{ pro }}</li>
-                            {% endfor %}
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                {% for con in product['cons'] %}
-                                <li>{{ con }}</li>
-                            {% endfor %}
-                            </ul>
-                        </td>
-                        <td>{{ product.helpful }}</td>
-                        <td>{{ product.unhelpful }}</td>
-                        <td>{{ product.publish_date }}</td>
-                        <td>{{ product.purchase_date }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<h3>Strona produktu {{ product_id }}</h3>
+<div class="container">
+    <div class="mb-3">
+        <label for="sortColumn" class="form-label">Sortuj:</label>
+        <select id="sortColumn" class="form-select">
+            <option value="0">ID opinii</option>
+            <option value="1">Autor</option>
+            <option value="2">Rekomendacja</option>
+            <option value="3">Liczba gwiazdek</option>
+            <option value="4">Komentarz</option>
+            <option value="5">Zalety</option>
+            <option value="6">Wady</option>
+            <option value="7">Pomocna</option>
+            <option value="8">Niepomocna</option>
+            <option value="9">Data opublikowania</option>
+            <option value="10">Data zakupu</option>
+        </select>
+        <button id="sortAsc" class="btn mt-2">Od najmniejszego do największego</button>
+        <button id="sortDesc" class="btn mt-2">Od największego do najmniejszego</button>
     </div>
+    <table id="table" class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID opinii</th>
+                <th>Autor</th>
+                <th>Rekomendacja</th>
+                <th>Liczba gwiazdek</th>
+                <th>Komentarz</th>
+                <th>Zalety</th>
+                <th>Wady</th>
+                <th>Pomocna</th>
+                <th>Niepomocna</th>
+                <th>Data opublikowania</th>
+                <th>Data zakupu</th>
+            </tr>
+            <tr>
+                <th><input type="text" id="filterOpinionID" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterAuthor" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterRecommendation" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterStars" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterContent" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterPros" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterCons" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterHelpful" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterUnhelpful" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterPublishDate" placeholder="Filter" class="form-control"></th>
+                <th><input type="text" id="filterPurchaseDate" placeholder="Filter" class="form-control"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in data %}
+            <tr>
+                <td>{{ product.opinion_id }}</td>
+                <td>{{ product.author }}</td>
+                <td>{{ product.recommendation }}</td>
+                <td>{{ product.stars }}</td>
+                <td>{{ product.content }}</td>
+                <td>
+                    <ul>
+                        {% for pro in product['pros'] %}
+                        <li>{{ pro }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for con in product['cons'] %}
+                        <li>{{ con }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ product.helpful }}</td>
+                <td>{{ product.unhelpful }}</td>
+                <td>{{ product.publish_date }}</td>
+                <td>{{ product.purchase_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var table = $('#table').DataTable();
+
+        $('#sortAsc').click(function() {
+            var column = $('#sortColumn').val();
+            table.order([column, 'asc']).draw();
+        });
+
+        $('#sortDesc').click(function() {
+            var column = $('#sortColumn').val();
+            table.order([column, 'desc']).draw();
+        });
+
+        $('#filterOpinionID').on('keyup change', function() {
+            table.column(0).search(this.value).draw();
+        });
+        $('#filterAuthor').on('keyup change', function() {
+            table.column(1).search(this.value).draw();
+        });
+        $('#filterRecommendation').on('keyup change', function() {
+            table.column(2).search(this.value).draw();
+        });
+        $('#filterStars').on('keyup change', function() {
+            table.column(3).search(this.value).draw();
+        });
+        $('#filterContent').on('keyup change', function() {
+            table.column(4).search(this.value).draw();
+        });
+        $('#filterPros').on('keyup change', function() {
+            table.column(5).search(this.value).draw();
+        });
+        $('#filterCons').on('keyup change', function() {
+            table.column(6).search(this.value).draw();
+        });
+        $('#filterHelpful').on('keyup change', function() {
+            table.column(7).search(this.value).draw();
+        });
+        $('#filterUnhelpful').on('keyup change', function() {
+            table.column(8).search(this.value).draw();
+        });
+        $('#filterPublishDate').on('keyup change', function() {
+            table.column(9).search(this.value).draw();
+        });
+        $('#filterPurchaseDate').on('keyup change', function() {
+            table.column(10).search(this.value).draw();
+        });
+    });
+</script>
 {% endblock %}

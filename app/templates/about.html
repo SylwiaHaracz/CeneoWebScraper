@@ -1,4 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>To jest strona o autorze</p>
+<div class="about">
+    <div class="info">
+        <p>Studiuję informatykę stosowaną na Uniwersytecie Ekonomicznym w Krakowie oraz jestem członiekiem koła naukowego i::team.</p>
+    </div>
+    <div class="hobbies">
+        <h2>Moje zaintereswania:</h2>
+        <div class="dance">
+            <h3>Taniec</h3>
+            <div class="photos">
+                <div class="photo1">
+                    <img src="{{ url_for('static', filename='images/DancePose.jpg') }}" alt="Frame from Sylwia's dancing video">
+                </div>
+                <div class="photo2">
+                    <img src="{{ url_for('static', filename='images/Cartwheel.jpg') }}" alt="Sylwia doing cartwheel">
+                </div>
+            </div>
+        </div>
+        <div class="F1">
+            <h3>Formuła 1</h3>
+            <img src="{{ url_for('static', filename='images/F1.jpg') }}" alt="F1 race (McLaren in Quatar)">
+        </div>
+    </div>
+</div>
     {% endblock %}

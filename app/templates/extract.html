@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Ekstrakcja opinii</h2>
+    <div class="extraction_form">
     <form action="{{url_for('extract')}}" method="post">
         {% if error is defined %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -21,9 +22,9 @@
                 <span id="IdHelpInline" class="form-text">Kod produktu składa się z 8-10 cyfr.</span>
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-danger">Pobierz opinie</button>
+                <button type="submit" class="btn extration_button">Pobierz opinie</button>
             </div>
         </div>
     </form>
-
+    </div>
     {% endblock %}
